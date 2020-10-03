@@ -13,38 +13,71 @@ namespace SnakeAndLadder
             int currentPosition = START_POSITION;
             int winningPlace = 100;
             int numOfMoves = 0;
-
+            const int NO_OF_PLAYERS = 2;
             Console.WriteLine("Welcome to Snake and Ladder");
-            Random random = new Random();
+            //initialising an array to store the data of 2 players separately 
+            int[] PlayerCurrentPosition = new int[NO_OF_PLAYERS];
 
+            for (int i = 0; i < NO_OF_PLAYERS; i++)
+            
+                PlayerCurrentPosition[i] = START_POSITION;
+                int currentIndex = 0;
+            
+                
 
-            while (currentPosition < winningPlace)
-            {               
-                int dieRoll = random.Next(1, 7);
-                Console.WriteLine("The number appeared is {0}", dieRoll);
-                int option = random.Next(1, 4);
-                Console.WriteLine("Next move : {0}", option);
-
-                switch (option)
+                while (PlayerCurrentPosition[currentIndex]<winningPlace)
                 {
-                    case NO_PLAY:
-                        break;
+                    Random random = new Random();
+                    bool flag = true;
 
-                    case LADDER:
-                        currentPosition += dieRoll;
-                        break;
-                    case SNAKE:
-                        currentPosition -= dieRoll;
-                        if (currentPosition < START_POSITION)
+                    while(flag)
+                    {
+                        int dieRoll = random.Next(1, 7);
+                        int nextMove = random.Next(1, 4);
+                        switch(nextMove)
                         {
-                            currentPosition = START_POSITION;
+                            case  NO_PLAY:
+                                flag = false;
+                                break;
+                            case LADDER:
+                                if(PlayerCurrentPosition[currentIndex]+dieRoll <= winningPlace)
+                                PlayerCurrentPosition[currentIndex] += dieRoll;
+                            if (PlayerCurrentPosition[currentIndex] == winningPlace)
+                                flag = false;   
+                                break;
+                            case SNAKE:
+                            
+                            PlayerCurrentPosition[currentIndex] -= dieRoll;
+                                if (PlayerCurrentPosition[currentIndex] < START_POSITION)
+                                    PlayerCurrentPosition[currentIndex] = START_POSITION;
+                            flag = false;
+
+                            break;
+                            default:
+                                break;
                         }
-                        break;
+                        Console.WriteLine("Current Player is " + (currentIndex + 1) + " Current Position is: " + PlayerCurrentPosition[currentIndex]);
+                    }
+                    numOfMoves++;
+                    if (currentIndex < NO_OF_PLAYERS - 1)
+                        currentIndex += 1;
+                    else currentIndex = 0;
                 }
-                numOfMoves++;
+
+
+            
+
+            for (int i = 0; i < NO_OF_PLAYERS; i++)
+            {
+                Console.WriteLine("Player " + (i + 1) + ", Current Position " + PlayerCurrentPosition[i]);
             }
-            Console.WriteLine("The current Position is {0}", currentPosition);
-            Console.WriteLine("Total moves used {0}", numOfMoves);
+            Console.WriteLine("Total Turns used {0}", numOfMoves);
+            Console.WriteLine("Winner is Player {0}", currentIndex + 1);
+
+
+
+
+
             Console.ReadKey();
         }
     }
