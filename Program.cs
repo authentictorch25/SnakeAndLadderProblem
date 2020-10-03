@@ -21,9 +21,9 @@ namespace SnakeAndLadder
             while (currentPosition < winningPlace)
             {               
                 int dieRoll = random.Next(1, 7);
-                Console.WriteLine("The number appeared is {0}", dieRoll);
+               // Console.WriteLine("The number appeared is {0}", dieRoll);
                 int option = random.Next(1, 4);
-                Console.WriteLine("Next move : {0}", option);
+               // Console.WriteLine("Next move : {0}", option);
 
                 switch (option)
                 {
