@@ -31,7 +31,10 @@ namespace SnakeAndLadder
                         break;
 
                     case LADDER:
-                        currentPosition += dieRoll;
+                        if (currentPosition + dieRoll <= winningPlace)
+                        {
+                            currentPosition += dieRoll;
+                        }
                         break;
                     case SNAKE:
                         currentPosition -= dieRoll;
